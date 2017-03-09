@@ -4,6 +4,8 @@ public class RdP {
 	private static int n_p = 30;
 	private static int n_t = 20;
 	
+
+
 	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
 										{0},{10},{0},{0},{0},{1},{1},{10},{0},{0},{0},{0},{0},
 										{1},{1},{1}};
@@ -80,6 +82,10 @@ public class RdP {
 		matriz_i = resta(matriz_post,matriz_pre);
 		marcado_actual = marcado_inicial;
 
+	}
+	
+	public int getN_t() {
+		return n_t;
 	}
 	
 	private static int[][] producto(int A[][], int B[][]){

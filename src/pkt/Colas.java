@@ -1,10 +1,11 @@
 package pkt;
 
+import java.util.ArrayList;
+
 public class Colas {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	Colas (int cant_hilos){
+		ArrayList[] estado_colas = new ArrayList [cant_hilos];
+		
+		
 	}
-
 }

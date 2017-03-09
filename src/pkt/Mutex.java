@@ -6,8 +6,8 @@ public class Mutex {
 	Mutex(){
 		mutex = false;
 	}
-
-
+	
+	
 	public boolean aquire(){ //tomo el mutex
 		if (mutex == true){			
 			mutex = false;

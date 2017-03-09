@@ -1,16 +1,29 @@
 package pkt;
 
 public class PiezaA1 implements Runnable {
+	private int estado; 
+	private int[] transicion = {0,11,13,15,17,19};
+	private GestorMonitor GM;
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	//	constructor
 
+	public PiezaA1 (GestorMonitor GM){
+		this.GM = GM;
+		this.estado = 0; 
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public void run() {
+		for(int ii = 0; ii < transicion.length; ii++){			
+			while(!GM.disparar_transicion(transicion[ii]));
+		}
+	}
 
+	private int get_estado(){
+		return this.estado;
+	}
+
+	private int[] get_transicion(){
+		return this.transicion;
 	}
 
 }

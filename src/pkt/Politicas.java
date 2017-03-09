@@ -1,10 +1,20 @@
 package pkt;
 
 public class Politicas {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+	
+	Politicas(){
+		
 	}
-
+	
+	public int cual(boolean[] vector_m){
+		int i;
+		for (i = 0; i<22; i++){
+			if (vector_m[i] == true) break;
+		}	
+		
+		System.out.printf("Estoy en Politica elijo transicion " + i);
+		return i;
+	}
+	
+	
 }

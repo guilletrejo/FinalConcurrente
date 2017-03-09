@@ -1,9 +1,14 @@
 package pkt;
 
 public class RdP {
-	private int marcado_inicial[] = {1,1,1,1,1,10,0,0,0,0,0,0,0,0,10,0,0,0,1,1,10,0,0,0,0,0,1,1,1};
+	private static int n_p = 30;
+	private static int n_t = 20;
 	
-	private int matriz_pre [][] = {	{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
+	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
+										{0},{10},{0},{0},{0},{1},{1},{10},{0},{0},{0},{0},{0},
+										{1},{1},{1}};
+	
+	private int matriz_pre [][] = {	{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},//I-
 									{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 									{0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0},
 									{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0},
@@ -33,7 +38,7 @@ public class RdP {
 									{0,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0},
 									{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0}};
 	
-	private int matriz_post [][] = {{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
+	private int matriz_post [][] = {{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, //I+
 									{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
 									{0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
 									{0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
@@ -64,11 +69,70 @@ public class RdP {
 									{0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0},
 									{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0},
 									};
-	RdP(){
-		
+	private int matriz_i [][];// = matriz_post - matriz_pre;
+	private int vector_dt[][] = new int[1][n_t]; // vector de transiciones a disparar
+	private int marcado_actual[][];
+	
+	
+	
+	public RdP(){
+		matriz_i = resta(matriz_post,matriz_pre);
+		marcado_actual = marcado_inicial;
 	}
 	
-
+	private static int[][] producto(int A[][], int B[][]){
+		int suma = 0;
+		int result[][] = new int[A.length][B.length];
+		for(int i = 0; i < A.length; i++){
+			for(int j = 0; j < B.length; j++){
+				suma = 0;
+				for(int k = 0; k < B.length; k++){
+					suma += A[i][k] * B[k][j];
+				}
+				result[i][j] = suma;
+			}
+		}
+		return result;
+	}
+	
+	private static int[][] resta(int A [][], int B[][]){
+		int [][] resultado = new int[n_p][n_t];
+		
+		for(int i = 0; i < n_p; i++){
+			for(int j = 0; j <n_t; j++){
+				resultado[i][j] = A[i][j] - B[i][j];
+			}
+		}
+		return resultado;
+	}
+	
+	private static int[][] suma(int A [][], int B[][]){
+		int [][] resultado = new int[n_p][n_t];
+		
+		for(int i = 0; i < n_p; i++){
+			for(int j = 0; j <n_t; j++){
+				resultado[i][j] = A[i][j] + B[i][j];
+			}
+		}
+		return resultado;
+	}
+	
+	public boolean disparar(int index){
+		int [][] resultado_disparo = new int[1][n_p];
+		vector_dt [1][index] = 1;
+		resultado_disparo = suma(marcado_actual,producto(matriz_i,vector_dt));
+		
+		for(int i = 0;i < n_p;i++){
+			if (resultado_disparo[1][i] < 0){
+				System.out.printf("NO SE PUEDE DISPARAR");
+				return false;
+			}
+		}
+		
+		marcado_actual = resultado_disparo;
+		
+		return true;
+	}
 
 	
 	

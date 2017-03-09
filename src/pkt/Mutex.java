@@ -3,7 +3,7 @@ package pkt;
 public class Mutex {
 	private boolean mutex;
 
-	Mutex(){
+	public Mutex(){
 		mutex = false;
 	}
 	

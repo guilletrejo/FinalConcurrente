@@ -69,6 +69,7 @@ public class RdP {
 									{0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0},
 									{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0},
 									};
+
 	private int matriz_i [][];// = matriz_post - matriz_pre;
 	private int vector_dt[][] = new int[1][n_t]; // vector de transiciones a disparar
 	private int marcado_actual[][];
@@ -78,6 +79,7 @@ public class RdP {
 	public RdP(){
 		matriz_i = resta(matriz_post,matriz_pre);
 		marcado_actual = marcado_inicial;
+
 	}
 	
 	private static int[][] producto(int A[][], int B[][]){

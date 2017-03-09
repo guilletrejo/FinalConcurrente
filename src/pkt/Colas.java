@@ -16,6 +16,11 @@ public class Colas {
 		estado_colas[index_c] ++;
 		vector_vc[index_t] = true;	
 		System.out.printf("Estoy en colas me voy a dormir");
+		try{
+			wait();
+		}
+		catch(InterruptedException e){}
+		
 		return true;
 	}
 	
@@ -24,8 +29,7 @@ public class Colas {
 			estado_colas[index_c]--;
 			if(estado_colas[index_c]==0)vector_vc[index_t] = false;
 			System.out.printf("Estoy en colas me despierto");
-			return true;
-			
+			return true;			
 		}
 		else return false;
 	}

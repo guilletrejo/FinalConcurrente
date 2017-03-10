@@ -14,6 +14,7 @@ public class Cola {
 	public synchronized boolean acquire(){
 		vector_vc ++;
 		try{
+			System.out.println("DORMIDO!");
 			wait();
 		}
 		catch(InterruptedException e){}
@@ -22,6 +23,7 @@ public class Cola {
 	
 	public synchronized void release(){
 		vector_vc --;
+		System.out.println("DESPIERTO!");
 		notify();
 	}	
 }

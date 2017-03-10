@@ -1,7 +1,7 @@
 package pkt;
 
-public class PiezaB implements Runnable {
-
+public class PiezaB extends Thread {
+	private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
 	private int estado; 
 	private int[] transicion = {9,10,11,12};
 	private GestorMonitor GM;
@@ -14,9 +14,12 @@ public class PiezaB implements Runnable {
 	}
 
 	public void run() {
-		for(int ii = 0; ii < transicion.length; ii++){			
+		for(int ii = 0; ii < transicion.length; ii++){		
+			
 			while(!GM.disparar_transicion(transicion[ii]));
+			System.out.println("[PZAB] DISPARO  " + name_t[transicion[ii]] );
 		}
+		System.out.println("[PZAB] TERMINADO  " );
 	}
 
 	private int get_estado(){

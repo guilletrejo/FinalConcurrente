@@ -11,7 +11,7 @@ public class Politicas {
 		for (i = 0; i<20; i++){
 			if (vector_m[i] == true) break;
 		}		
-		System.out.printf("Estoy en Politica elijo transicion " + i);
+		System.out.printf("Estoy en Politica elijo transicion %d \n" , i);
 		return i;
 	}
 	

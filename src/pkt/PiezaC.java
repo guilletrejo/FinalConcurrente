@@ -5,6 +5,7 @@ public class PiezaC extends Thread {
 	private int estado; 
 	private int[] transicion = {14,15,16,17,18,19};
 	private GestorMonitor GM;
+	private int cant_piezas_terminadas;
 
 	//	constructor
 
@@ -12,20 +13,24 @@ public class PiezaC extends Thread {
 		this.GM = GM;
 		this.estado = 0; 
 		this.setName("[THREAD PIEZA C]");
+		this.cant_piezas_terminadas = 0;
 	}
 
 	public void run() {
-		for(int ii = 0; ii < transicion.length; ii++){	
-			while(!GM.disparar_transicion(transicion[ii]));
-			try {
-				sleep(1);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		while(true){
+			for(int ii = 0; ii < transicion.length; ii++){	
+				while(!GM.disparar_transicion(transicion[ii]));
+				try {
+					sleep(1);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				//System.out.println("[PZAC] DISPARO  " + name_t[transicion[ii]] );
 			}
-			//System.out.println("[PZAC] DISPARO  " + name_t[transicion[ii]] );
+			cant_piezas_terminadas ++;
+			System.out.printf("[PIEZA C] %d TERMINADAS \n", cant_piezas_terminadas);
 		}
-		System.out.println("[PZAC] TERMINADO  " );
 	}
 
 	private int get_estado(){

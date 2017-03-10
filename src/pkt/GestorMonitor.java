@@ -30,8 +30,7 @@ public class GestorMonitor {
 		boolean [] vs,vc,m;
 		
 		vc = new boolean[rdp.getN_t()]; //No me gusta en mayuscula  
-		m = new boolean[rdp.getN_t()];
-		
+		m = new boolean[rdp.getN_t()];		
 		
 		boolean temp_m = false;
 		boolean flag_hilo_despiertado = false; //despiertado ???
@@ -40,22 +39,7 @@ public class GestorMonitor {
 			
 			k = rdp.disparar(transicion);
 			if(k){
-				vs = rdp.sensibilizadas();				
-				
-//				for(int jj = 0; jj < colas.length; jj++){	
-//					for (int hh = 0; hh < vc.length; hh++){
-//						vc[hh] = vc[hh] || (colas[jj].quienes_estan() > 0); 
-//					}
-//				}							
-//				
-//				if(vc.length != vs.length)
-//					System.out.print("el tamaño de vs y vc es distinto");
-//				
-//				for(int rr = 0; rr< vc.length; rr++){
-//					m[rr] = vs[rr] && vc[rr];
-//					temp_m = m[rr] || temp_m;
-//				}
-				
+				vs = rdp.sensibilizadas();					
 				for(int jj = 0; jj < colas.length; jj++){
 					vc[jj] = (this.colas[jj].quienes_estan() > 0);
 					m[jj] = vs[jj] & vc[jj];
@@ -74,8 +58,8 @@ public class GestorMonitor {
 				}
 			}
 			else {
+				System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] +" "+ t.getName() + "\n" );
 				mtx.release();
-				System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] + t.getName() + "\n" );
 				colas[transicion].acquire();		
 				return false;
 			}

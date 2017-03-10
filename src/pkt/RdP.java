@@ -121,18 +121,7 @@ public class RdP {
 		}
 		return resultado;
 	}
-
-//	private static int[][] suma(int A [][], int B[][]){
-//		int [][] resultado = new int[A.length][A[0].length];
-//
-//		for(int i = 0; i < A.length - 1; i++){
-//			for(int j = 0; j < A[0].length - 1; j++){
-//				resultado[i][j] = A[i][j] + B[i][j];
-//			}
-//		}
-//		return resultado;
-//	}
-
+	
 	private static int[] suma_vec(int A [], int B[]){
 		int [] resultado = new int[A.length];
 		//System.out.print(A);
@@ -171,7 +160,7 @@ public class RdP {
 
 		for(int i = 0;i < resultado_disparo.length;i++){
 			if (resultado_disparo[i] < 0){
-				System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> "+ name_t[index] + t.getName() + "\n");
+				System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> %s %s\n",name_t[index],t.getName());
 				return false;
 			}
 		}
@@ -181,7 +170,7 @@ public class RdP {
 			//System.out.println(plazas[j] + "->" + resultado_disparo[j] + " ");
 		}
 		System.out.println("--------------------------------------------------------------");
-		System.out.printf("[RdP]  DISPARO OK TRANSICION -> "+ name_t[index] + t.getName() + "\n");
+		System.out.printf("[RdP]  DISPARO OK TRANSICION -> %s %s\n", name_t[index], t.getName());
 		System.out.println();
 		return true;
 	}

@@ -18,15 +18,14 @@ public class Cola {
 		try{
 			System.out.println(t.getName() + " DORMIDO!");
 			wait();
+			System.out.println(t.getName() + " DESPIERTO!");
 		}
 		catch(InterruptedException e){}
 		return true;
 	}
 	
 	public synchronized void release(){
-		t = Thread.currentThread();
 		vector_vc --;
 		notify();
-		System.out.println(t.getName() + " DESPIERTO!");
 	}	
 }

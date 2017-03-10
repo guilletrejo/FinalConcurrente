@@ -8,27 +8,27 @@ public class Main {
 		// TODO Auto-generated method stub
 		//GestorMonitor GDM = new GestorMonitor();
 		RdP rdp = new RdP();
-		int [] sens = rdp.sensibilizadas();
-		 for (int j = 0; j < sens.length; j++) {
-			 System.out.println(j + "->" +transiciones[j] + " = " + hab[sens[j]] + " ");
-		 }
+		boolean [] sens = rdp.sensibilizadas();
+		for (int j = 0; j < sens.length; j++) {
+			System.out.println(j + "->" +transiciones[j] + " = " + sens[j] + " ");
+		}
 		System.out.println();
 		System.out.println("[MAIN] DISPARO  " + transiciones[0]+ " = "  + rdp.disparar(0));
 		System.out.println();
 		sens = rdp.sensibilizadas();
-		 for (int j = 0; j < sens.length; j++) {
-		     System.out.println(j + "->" + transiciones[j] + " = " + hab[sens[j]] + " ");
-		     
-		 }
+		for (int j = 0; j < sens.length; j++) {
+			System.out.println(j + "->" + transiciones[j] + " = " + sens[j] + " ");
+
+		}
 		System.out.println();
 		System.out.println("[MAIN] DISPARO " + transiciones[2] +" = " + rdp.disparar(2));
 		System.out.println();
-		
+
 		sens = rdp.sensibilizadas();
-		 for (int j = 0; j < sens.length; j++) {
-		     System.out.println(j + "->" + transiciones[j] + " = " + hab[sens[j]] + " ");
-		     
-		 }
+		for (int j = 0; j < sens.length; j++) {
+			System.out.println(j + "->" + transiciones[j] + " = " + sens[j] + " ");
+
+		}
 	}
 
 }

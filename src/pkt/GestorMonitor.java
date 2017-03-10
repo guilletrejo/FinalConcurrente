@@ -17,8 +17,13 @@ public class GestorMonitor {
 	public void disparar_transicion(int transicion){
 		boolean k = mtx.acquire(); 
 		boolean [] vs,vc,m;
+		
+		vc = new boolean[rdp.getN_t()]; //No me gusta en mayuscula  
+		m = new boolean[rdp.getN_t()];
+		
+		
 		boolean temp_m = false;
-		boolean flag_hilo_despiertado = false;
+		boolean flag_hilo_despiertado = false; //despiertado ???
 		
 		while(k & !flag_hilo_despiertado){
 			k = rdp.disparar(transicion);
@@ -57,5 +62,6 @@ public class GestorMonitor {
 			}
 		}		
 		mtx.release();		
+		//return true;
 	}
 }

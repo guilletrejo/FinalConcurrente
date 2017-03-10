@@ -2,7 +2,7 @@ package pkt;
 
 public class PiezaA1 implements Runnable {
 	private int estado; 
-	private int[] transicion = {0,11,13,15,17,19};
+	private int[] transicion = {0,1,3,4,6,8};
 	private GestorMonitor GM;
 
 	//	constructor

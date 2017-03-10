@@ -3,7 +3,7 @@ package pkt;
 public class PiezaC implements Runnable {
 
 	private int estado; 
-	private int[] transicion = {31,32,33,34,35,36};
+	private int[] transicion = {14,15,16,17,18,19};
 	private GestorMonitor GM;
 
 	//	constructor

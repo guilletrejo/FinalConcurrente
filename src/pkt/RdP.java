@@ -6,6 +6,8 @@ public class RdP {
 	private static String[] plazas = {"InterbloqPzaB","m1","m2","m3","m4","P10","P11","P12","P13","P14","P15","P16","P17","P18","P20","P21","P22","P23","P27","P28","P30","P31","P32","P33","P34","P35","r1","r2","r3"};
 	//private static String[] plazas = {"P1","P2","P3","P4"};
 	
+
+
 	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
 										{0},{10},{0},{0},{0},{1},{1},{10},{0},{0},{0},{0},{0},
 										{1},{1},{1}};
@@ -78,6 +80,7 @@ public class RdP {
 	
 	private int matriz_i [][];// = matriz_post - matriz_pre;
 	// vector de transiciones a disparar
+
 	private int marcado_actual[][];
 	
 	
@@ -86,6 +89,10 @@ public class RdP {
 		matriz_i = resta(matriz_post,matriz_pre);
 		marcado_actual = marcado_inicial;
 
+	}
+	
+	public int getN_t() {
+		return n_t;
 	}
 	
 	private static int[][] producto(int A[][], int B[][]){

@@ -11,12 +11,19 @@ public class PiezaC extends Thread {
 	public PiezaC (GestorMonitor GM){
 		this.GM = GM;
 		this.estado = 0; 
+		this.setName("[THREAD PIEZA C]");
 	}
 
 	public void run() {
 		for(int ii = 0; ii < transicion.length; ii++){	
 			while(!GM.disparar_transicion(transicion[ii]));
-			System.out.println("[PZAC] DISPARO  " + name_t[transicion[ii]] );
+			try {
+				sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//System.out.println("[PZAC] DISPARO  " + name_t[transicion[ii]] );
 		}
 		System.out.println("[PZAC] TERMINADO  " );
 	}

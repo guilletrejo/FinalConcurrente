@@ -3,6 +3,7 @@ package pkt;
 public class RdP {
 	private static int n_p = 30;
 	private static int n_t = 20;
+	Thread t;
 	private static String[] plazas = {"InterbloqPzaB","m1","m2","m3","m4","P10","P11","P12","P13","P14","P15","P16","P17","P18","P20","P21","P22","P23","P27","P28","P30","P31","P32","P33","P34","P35","r1","r2","r3"};
 	//private static String[] plazas = {"P1","P2","P3","P4"};
 	private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
@@ -154,6 +155,7 @@ public class RdP {
 	}
 
 	public boolean disparar(int index){
+		t = Thread.currentThread();
 		int [] resultado_disparo = new int[n_p];
 		int vector_dt[][] = new int[1][n_t]; 
 		vector_dt [0][index] = 1;
@@ -169,17 +171,17 @@ public class RdP {
 
 		for(int i = 0;i < resultado_disparo.length;i++){
 			if (resultado_disparo[i] < 0){
-				System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> "+ name_t[index] + "\n");
+				System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> "+ name_t[index] + t.getName() + "\n");
 				return false;
 			}
 		}
-		System.out.println("---------------------MARCADO DESPUES DE DISPARO--------------------");
+		//System.out.println("---------------------MARCADO DESPUES DE DISPARO--------------------");
 		for (int j = 0; j < resultado_disparo.length; j++) {
 			marcado_actual[j][0]=resultado_disparo[j]; 
-			System.out.println(plazas[j] + "->" + resultado_disparo[j] + " ");
+			//System.out.println(plazas[j] + "->" + resultado_disparo[j] + " ");
 		}
 		System.out.println("--------------------------------------------------------------");
-		System.out.printf("[RdP]  DISPARO OK TRANSICION -> "+ name_t[index] + "\n");
+		System.out.printf("[RdP]  DISPARO OK TRANSICION -> "+ name_t[index] + t.getName() + "\n");
 		System.out.println();
 		return true;
 	}

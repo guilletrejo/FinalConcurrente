@@ -1,11 +1,14 @@
 package pkt;
 
 public class GestorMonitor {
-
+	
+	private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
 	private Mutex mtx;
 	private RdP rdp;
 	private Cola[] colas;
 	private Politicas politica;
+	Thread t;
+	
 	
 	public GestorMonitor(RdP rdp){
 		this.mtx = new Mutex();
@@ -20,7 +23,10 @@ public class GestorMonitor {
 	public boolean disparar_transicion(int transicion){
 		boolean k = mtx.acquire(); 
 		if (k == false) return false; 
-		else System.out.println("[GDM] Enter al monitor \n");
+		else{
+			t = Thread.currentThread();
+			System.out.println("[GDM] Enter al monitor - >" + t.getName() + "\n");
+		}
 		boolean [] vs,vc,m;
 		
 		vc = new boolean[rdp.getN_t()]; //No me gusta en mayuscula  
@@ -30,11 +36,10 @@ public class GestorMonitor {
 		boolean temp_m = false;
 		boolean flag_hilo_despiertado = false; //despiertado ???
 		
-		while(k & !flag_hilo_despiertado){
+		while(k){
 			
 			k = rdp.disparar(transicion);
 			if(k){
-				
 				vs = rdp.sensibilizadas();				
 				
 //				for(int jj = 0; jj < colas.length; jj++){	
@@ -50,16 +55,19 @@ public class GestorMonitor {
 //					m[rr] = vs[rr] && vc[rr];
 //					temp_m = m[rr] || temp_m;
 //				}
+				
 				for(int jj = 0; jj < colas.length; jj++){
 					vc[jj] = (this.colas[jj].quienes_estan() > 0);
 					m[jj] = vs[jj] & vc[jj];
+					if (m[jj] == true) temp_m = true;
 				}
 				
 				if(temp_m != false){
 					int next_transicion = politica.cual(m);
-					System.out.printf("[GDM] despierto al hilo de la cola %d \n", next_transicion);
+					System.out.printf("[GDM] despierto al hilo de la cola " + name_t[next_transicion] + "\n" );
 					colas[next_transicion].release();
 					flag_hilo_despiertado = true;
+					break;
 				}				
 				else{
 					k = false;
@@ -67,13 +75,14 @@ public class GestorMonitor {
 			}
 			else {
 				mtx.release();
-				System.out.printf("[GDM] Me voy a la cola %d \n", transicion);
-				colas[transicion].acquire();				
+				System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] + t.getName() + "\n" );
+				colas[transicion].acquire();		
+				return false;
 			}
-		}		
-		mtx.release();		
+		}	
 		System.out.println();
-		System.out.println("[GDM] Salgo del monitor");
+		System.out.println("[GDM] Salgo del monitor- >" + t.getName() + "\n");
+		mtx.release();				
 		return true;
 	}
 }

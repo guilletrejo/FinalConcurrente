@@ -15,14 +15,14 @@ public class Mutex {
 			catch(InterruptedException e){}
 		}
 		mutex = false;
-		System.out.printf("[MUTEX] Mutex cerrado \n");
+		//System.out.printf("[MUTEX] Mutex cerrado \n");
 		return true;
 	}
 
 	public synchronized boolean release(){ //devuelvo el mutex
 		if (mutex == false){			
 			mutex = true;
-			System.out.printf("[MUTEX] Mutex abierto \n");
+			//System.out.printf("[MUTEX] Mutex abierto \n");
 			notifyAll();
 			return true;
 		}

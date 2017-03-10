@@ -13,11 +13,15 @@ public class Main {
 		PiezaA2 pzaA2 = new PiezaA2(GDM);
 		PiezaC pzaC = new PiezaC(GDM);
 		pzaA1.start();
+		//pzaA1.setName("[THREAD PIEZA A1]");
 		pzaA2.start();
+		//pzaA2.setName("[THREAD PIEZA A2]");
 		pzaB.start();
+		//pzaB.setName("[THREAD PIEZA B]");
 		pzaC.start();
+		//pzaC.setName("[THREAD PIEZA C]");
 		
-		
+		//PASAR SET NAME A CADA CLASE	
 		
 		
 		

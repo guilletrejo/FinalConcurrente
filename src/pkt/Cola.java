@@ -2,6 +2,7 @@ package pkt;
 
 public class Cola {
 	private int vector_vc;
+	Thread t;
 	
 	Cola (){
 		this.vector_vc = 0;
@@ -12,9 +13,10 @@ public class Cola {
 	}
 	
 	public synchronized boolean acquire(){
+		t = Thread.currentThread();
 		vector_vc ++;
 		try{
-			System.out.println("DORMIDO!");
+			System.out.println(t.getName() + " DORMIDO!");
 			wait();
 		}
 		catch(InterruptedException e){}
@@ -22,8 +24,9 @@ public class Cola {
 	}
 	
 	public synchronized void release(){
+		t = Thread.currentThread();
 		vector_vc --;
-		System.out.println("DESPIERTO!");
 		notify();
+		System.out.println(t.getName() + " DESPIERTO!");
 	}	
 }

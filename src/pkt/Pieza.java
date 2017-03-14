@@ -19,7 +19,7 @@ public class Pieza extends Thread {
 	}
 
 	public void run() {
-		while(cant_piezas_terminadas < 10){
+		while(cant_piezas_terminadas < 1000){
 		//if(true){
 			for(int ii = 0; ii < transicion.length; ii++){		
 
@@ -33,12 +33,6 @@ public class Pieza extends Thread {
 				//System.out.println("[PZAB] DISPARO  " + name_t[transicion[ii]] );
 			}
 			cant_piezas_terminadas ++;
-			try {
-				sleep(10);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			System.out.printf("[%s] %d TERMINADAS \n",this.getName(),cant_piezas_terminadas);
 		}
 	}

@@ -23,7 +23,7 @@ public class Mutex {
 		if (mutex == false){			
 			mutex = true;
 			//System.out.printf("[MUTEX] Mutex abierto \n");
-			notifyAll();
+			notify();
 			return true;
 		}
 		else return false;

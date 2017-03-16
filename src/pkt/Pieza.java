@@ -7,8 +7,6 @@ public class Pieza extends Thread {
 	private int cant_piezas_terminadas;
 	private GestorMonitor GM;
 
-	//	constructor
-
 	public Pieza (GestorMonitor GM, String nombre_hilo, int [] transiciones, String[] nombre_transiciones){
 		this.GM = GM;
 		this.estado = 0; 
@@ -19,11 +17,10 @@ public class Pieza extends Thread {
 	}
 
 	public void run() {
-		while(cant_piezas_terminadas < 1000){
+		while(cant_piezas_terminadas < 500){
 		//if(true){
 
 			for(int ii = 0; ii < transicion.length; ii++){		
-				//while(!GM.disparar_transicion(transicion[ii]));
 				GM.disparar_transicion(transicion[ii]);				
 				try {
 					sleep(10);

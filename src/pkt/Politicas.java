@@ -12,7 +12,7 @@ public class Politicas {
 		for (i = 0; i<19; i++){
 			if (vector_m[i] == true) j=i;
 		}		
-		System.out.printf("Estoy en Politica elijo transicion %d \n" , j);
+		//System.out.printf("Estoy en Politica elijo transicion %d \n" , j);
 		return j;
 	}
 	

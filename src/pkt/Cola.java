@@ -16,9 +16,9 @@ public class Cola {
 		t = Thread.currentThread();
 		vector_vc ++;
 		try{
-			System.out.println(t.getName() + " DORMIDO!");
+			//System.out.println(t.getName() + " DORMIDO!");
 			wait();
-			System.out.println(t.getName() + " DESPIERTO!");
+			//System.out.println(t.getName() + " DESPIERTO!");
 		}
 		catch(InterruptedException e){}
 		return true;

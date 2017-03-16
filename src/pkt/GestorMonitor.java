@@ -20,20 +20,20 @@ public class GestorMonitor {
 		}
 	}
 
-	public boolean disparar_transicion(int transicion){
+	public void disparar_transicion(int transicion){
 		boolean k = mtx.acquire(); 
 		if (k != false){
 			t = Thread.currentThread();
-			System.out.println("[GDM] Enter al monitor - >" + t.getName() + "\n");
+			//System.out.println("[GDM] Enter al monitor - >" + t.getName() + "\n");
 		}
-		else return false;
+		else return;
 		boolean [] vs,vc,m;
 		
 		vc = new boolean[rdp.getN_t()]; //No me gusta en mayuscula  
 		m = new boolean[rdp.getN_t()];		
 		
 		boolean temp_m = false;
-		boolean flag_hilo_despiertado = false; //despiertado ???
+		boolean flag_hilo_despierto = false; //despiertado ???
 		
 		while(k){
 			
@@ -48,10 +48,9 @@ public class GestorMonitor {
 				
 				if(temp_m != false){
 					int next_transicion = politica.cual(m);
-					System.out.printf("[GDM] despierto al hilo de la cola " + name_t[next_transicion] + "\n" );
+					
 					colas[next_transicion].release();
-					//transicion = next_transicion;
-					flag_hilo_despiertado = true;
+					flag_hilo_despierto = true;
 					break;
 					//return true;
 				}				
@@ -60,8 +59,8 @@ public class GestorMonitor {
 				}
 			}
 			else {
-				if (false || transicion != 8 && transicion != 0){
-					System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] +" "+ t.getName() + "\n" );
+				if (true || transicion != 8 && transicion != 0){
+					//System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] +" "+ t.getName() + "\n" );
 					mtx.release();
 					colas[transicion].acquire();
 					k=true;
@@ -70,9 +69,9 @@ public class GestorMonitor {
 				}
 			}
 		}	
-		System.out.println();
-		System.out.println("[GDM] Salgo del monitor- >" + t.getName() + "\n");
-		if (!flag_hilo_despiertado)mtx.release();				
-		return true;
+		//System.out.println();
+		//System.out.println("[GDM] Salgo del monitor- >" + t.getName() + "\n");
+		if (!flag_hilo_despierto)mtx.release();				
+		return;
 	}
 }

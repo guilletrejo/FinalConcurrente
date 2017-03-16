@@ -160,7 +160,7 @@ public class RdP {
 
 		for(int i = 0;i < resultado_disparo.length;i++){
 			if (resultado_disparo[i] < 0){
-				System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> %s %s\n",name_t[index],t.getName());
+			//	System.out.printf("[RdP] NO SE PUEDE DISPARAR TRANSICION -> %s %s\n",name_t[index],t.getName());
 				return false;
 			}
 		}
@@ -169,9 +169,9 @@ public class RdP {
 			marcado_actual[j][0]=resultado_disparo[j]; 
 			//System.out.println(plazas[j] + "->" + resultado_disparo[j] + " ");
 		}
-		System.out.println("--------------------------------------------------------------");
-		System.out.printf("[RdP]  DISPARO OK TRANSICION -> %s %s\n", name_t[index], t.getName());
-		System.out.println();
+		//System.out.println("--------------------------------------------------------------");
+		//System.out.printf("[RdP]  DISPARO OK TRANSICION -> %s %s\n", name_t[index], t.getName());
+		//System.out.println();
 		return true;
 	}
 

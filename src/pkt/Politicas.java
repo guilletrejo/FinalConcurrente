@@ -9,7 +9,7 @@ public class Politicas {
 	public int cual(boolean[] vector_m){
 		int i;
 		int j = 0;
-		for (i = 0; i<19; i++){
+		for (i = 0; i<vector_m.length; i++){
 			if (vector_m[i] == true) j=i;
 		}		
 		//System.out.printf("Estoy en Politica elijo transicion %d \n" , j);

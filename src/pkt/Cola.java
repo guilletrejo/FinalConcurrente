@@ -1,20 +1,18 @@
 package pkt;
 
 public class Cola {
-	private int vector_vc;
-	Thread t;
+	private boolean vector_vc;
 	
 	Cola (){
-		this.vector_vc = 0;
+		this.vector_vc = false;
 	}
 	
-	public int quienes_estan(){
+	public boolean quienes_estan(){
 		return vector_vc;
 	}
 	
 	public synchronized boolean acquire(){
-		t = Thread.currentThread();
-		vector_vc ++;
+		vector_vc = true;
 		try{
 			wait();
 		}
@@ -23,7 +21,8 @@ public class Cola {
 	}
 	
 	public synchronized void release(){
-		vector_vc --;
+		vector_vc = false;
 		notify();
+		return;
 	}	
 }

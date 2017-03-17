@@ -17,7 +17,7 @@ public class Pieza extends Thread {
 	}
 
 	public void run() {
-		while(cant_piezas_terminadas < 500){
+		while(cant_piezas_terminadas < 100){
 		//if(true){
 
 			for(int ii = 0; ii < transicion.length; ii++){		
@@ -33,14 +33,6 @@ public class Pieza extends Thread {
 			cant_piezas_terminadas ++;
 			System.out.printf("[%s] %d TERMINADAS \n",this.getName(),cant_piezas_terminadas);
 		}
-	}
-
-	private int get_estado(){
-		return this.estado;
-	}
-
-	private int[] get_transicion(){
-		return this.transicion;
 	}
 
 

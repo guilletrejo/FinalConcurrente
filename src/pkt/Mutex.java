@@ -1,30 +1,26 @@
 package pkt;
 
+import java.util.concurrent.Semaphore;
+
 public class Mutex {
-	private boolean mutex;
+	private final Semaphore semaforo;
 
 	public Mutex(){
-		mutex = true;
+		semaforo = new Semaphore(1,true);
 	}
 	
-	public synchronized boolean acquire(){
-		while (mutex == false){
-			try{
-				wait();
-			}
-			catch(InterruptedException e){}
+	public boolean acquire(){
+		try{
+			semaforo.acquire();
+		} catch(InterruptedException e){
+			e.printStackTrace();
 		}
-		mutex = false;
 		return true;
 	}
 
-	public synchronized boolean release(){ 
-		if (mutex == false){			
-			mutex = true;
-			notify();
-			return true;
-		}
-		else return false;
+	public boolean release(){ 
+		semaforo.release();
+		return true;
 	}
 
 }

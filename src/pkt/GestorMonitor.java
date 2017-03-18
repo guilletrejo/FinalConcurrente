@@ -24,54 +24,60 @@ public class GestorMonitor {
 		boolean k = mtx.acquire(); 
 		if (k != false){
 			t = Thread.currentThread();
-			//System.out.println("[GDM] Enter al monitor - >" + t.getName() + "\n");
 		}
 		else return;
 		boolean [] vs,vc,m;
 		
 		vc = new boolean[rdp.getN_t()]; //No me gusta en mayuscula  
 		m = new boolean[rdp.getN_t()];		
-		
+		vs = new boolean[rdp.getN_t()];		
+
 		boolean temp_m = false;
-		boolean flag_hilo_despierto = false; //despiertado ???
+		boolean flag_hilo_despierto = false; 
 		
 		while(k){
 			
 			k = rdp.disparar(transicion);
 			if(k){
-				vs = rdp.sensibilizadas();					
-				for(int jj = 0; jj < colas.length; jj++){
-					vc[jj] = (this.colas[jj].quienes_estan() > 0);
-					m[jj] = vs[jj] & vc[jj];
-					if (m[jj] == true) temp_m = true;
-				}
+				vs = rdp.sensibilizadas();
+				m = get_m(vs,vc,m);
 				
+				temp_m = necesito_politica(m);
+		
 				if(temp_m != false){
 					int next_transicion = politica.cual(m);
 					
 					colas[next_transicion].release();
 					flag_hilo_despierto = true;
 					break;
-					//return true;
+					
 				}				
 				else{
 					k = false;
 				}
 			}
 			else {
-				if (true || transicion != 8 && transicion != 0){
-					//System.out.printf("[GDM] Me voy a la cola " + name_t[transicion] +" "+ t.getName() + "\n" );
+					
 					mtx.release();
 					colas[transicion].acquire();
-					k=true;
-				//break;
-				//return false;
-				}
+					k = true;
 			}
 		}	
-		//System.out.println();
-		//System.out.println("[GDM] Salgo del monitor- >" + t.getName() + "\n");
 		if (!flag_hilo_despierto)mtx.release();				
 		return;
 	}
+
+	private boolean necesito_politica(boolean[] m) {
+		for(boolean b : m){ if(b) return true; } return false;
+	}
+
+	private boolean[] get_m(boolean [] vs,boolean [] vc, boolean [] m) {
+		for(int jj = 0; jj < this.colas.length; jj++){			
+			vc[jj] = (this.colas[jj].quienes_estan() > 0);
+			m[jj] = vs[jj] & vc[jj];
+			
+		}
+		return m;
+	}
+	
 }

@@ -7,7 +7,7 @@ public class Mutex {
 		mutex = true;
 	}
 	
-	public synchronized boolean acquire(){ //tomo el mutex
+	public synchronized boolean acquire(){
 		while (mutex == false){
 			try{
 				wait();
@@ -15,14 +15,12 @@ public class Mutex {
 			catch(InterruptedException e){}
 		}
 		mutex = false;
-		//System.out.printf("[MUTEX] Mutex cerrado \n");
 		return true;
 	}
 
-	public synchronized boolean release(){ //devuelvo el mutex
+	public synchronized boolean release(){ 
 		if (mutex == false){			
 			mutex = true;
-			//System.out.printf("[MUTEX] Mutex abierto \n");
 			notify();
 			return true;
 		}

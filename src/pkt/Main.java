@@ -10,18 +10,23 @@ public class Main {
 	private static int[] numero_transisiconesA2 = {2,13,5,7,8};
 	private static int[] numero_transisiconesB = {9,10,11,12};
 	private static int[] numero_transisiconesC = {14,15,16,17,18,19};
+
+	private static int[] numero_transisiconesA4 = {0};
+
 	private static int[] numero_transisiconesA = {0};
 	//private static int[] numero_transisiconesA4 = {0};
 	private static int[] numero_transisiconesProd = {0,1};
 	private static int[] numero_transisiconesCons = {2,3};
 
+
 	private static boolean TEST = false;
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		System.out.printf("Arranca la produccion de piezas\n");
 		
 		RdP rdp = new RdP(TEST);
 		GestorMonitor GDM = new GestorMonitor(rdp);
+				
+
 		
 		if (!TEST){
 			Pieza pzaA = new Pieza(GDM,"PIEZA AGEN",numero_transisiconesA,nombre_transiciones);

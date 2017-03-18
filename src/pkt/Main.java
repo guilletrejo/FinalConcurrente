@@ -15,7 +15,7 @@ public class Main {
 	private static int[] numero_transisiconesProd = {0,1};
 	private static int[] numero_transisiconesCons = {2,3};
 
-	private static boolean TEST = true;
+	private static boolean TEST = false;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		System.out.printf("Arranca la produccion de piezas\n");

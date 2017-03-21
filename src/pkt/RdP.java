@@ -1,5 +1,8 @@
 package pkt;
 import java.util.Scanner;
+
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -7,77 +10,15 @@ public class RdP {
 	private int n_p = 6;
 	private int n_t = 4;
 	Thread t;
-	//private static String[] plazas = {"InterbloqPzaB","m1","m2","m3","m4","P10","P11","P12","P13","P14","P15","P16","P17","P18","P20","P21","P22","P23","P27","P28","P30","P31","P32","P33","P34","P35","r1","r2","r3"};
-	//private static String[] plazas = {"P1","P2","P3","P4"};
-	//private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
 	
+	private static String[] nombre_transiciones = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
+	private static String[] nombre_transiciones_test = {"T0","T1","T2","T3"};
 	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
 			{0},{10},{0},{0},{0},{1},{1},{10},{0},{0},{0},{0},{0},
 			{1},{1},{1}};
 	private int marcado_inicial_test[][] = {{1},{0},{0},{1},{0},{10}};
 	private int matriz_pre [][] = new int [n_p][n_t];
 	private int matriz_post [][] = new int [n_p][n_t];
-
-//	private int matriz_pre [][] = {{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, //I-
-//			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0}};
-//
-//
-//	private int matriz_post [][] = {{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0}};
 
 
 	private int matriz_i [][];// = matriz_post - matriz_pre;
@@ -111,11 +52,37 @@ public class RdP {
 		return n_p;
 	}
 
-	public int[][] getMarcado_actual() {
+	public int[][] getMarcado_actual() {		
+		
 		return marcado_actual;
 	}
 
-
+	public void test_p (){
+		//assert false;
+		assert(marcado_actual[15][0]+marcado_actual[16][0]+marcado_actual[0][0] == 1);
+		assert(1 == marcado_actual[1][0]+marcado_actual[7][0]);
+		assert(1 == marcado_actual[11][0]+marcado_actual[16][0]+marcado_actual[2][0]);
+		assert(1 == marcado_actual[24][0]+marcado_actual[8][0]+marcado_actual[3][0]);
+		assert(1 == marcado_actual[12][0]+marcado_actual[22][0]+marcado_actual[4][0]);
+		assert(10 == marcado_actual[5][0]+marcado_actual[6][0]+marcado_actual[7][0]
+										+marcado_actual[8][0]+marcado_actual[9][0]+marcado_actual[10][0]
+										+marcado_actual[11][0]+marcado_actual[12][0]+marcado_actual[13][0]);
+		assert(10 == marcado_actual[14][0]+marcado_actual[15][0]+marcado_actual[16][0]+marcado_actual[17][0]);
+		assert(1 == marcado_actual[8][0]+marcado_actual[10][0]+marcado_actual[12][0]
+										+marcado_actual[18][0]+marcado_actual[21][0]+marcado_actual[22][0]
+										+marcado_actual[25][0]+marcado_actual[24][0]+marcado_actual[23][0]);
+		assert(1 == marcado_actual[9][0]+marcado_actual[16][0]+marcado_actual[19][0]);
+		assert(10 == marcado_actual[20][0]+marcado_actual[21][0]+marcado_actual[22][0]
+										+marcado_actual[25][0]+marcado_actual[24][0]+marcado_actual[23][0]);
+		
+		assert(1 == marcado_actual[25][0]+marcado_actual[6][0]+marcado_actual[26][0]);
+		
+		assert(1 == marcado_actual[9][0]+marcado_actual[10][0]+marcado_actual[27][0]
+										+marcado_actual[15][0]+marcado_actual[17][0]+marcado_actual[23][0]);
+		assert(1 == marcado_actual[28][0]+marcado_actual[13][0]+marcado_actual[21][0]);
+	}
+	
+	
 	private static int[][] producto(int A[][], int B[][]){
 		int suma = 0;
 		int result[][] = new int[A.length][B[0].length];
@@ -179,6 +146,8 @@ public class RdP {
 		for (int j = 0; j < resultado_disparo.length; j++) {
 			marcado_actual[j][0]=resultado_disparo[j]; 
 		}
+		test_p();
+		//System.out.println("DISPARO OK::: " + nombre_transiciones[index]);
 		return true;
 	}
 
@@ -209,8 +178,6 @@ public class RdP {
 		//int i = 0, j = 0;
 		
 		try {
-			
-			//scanner = new Scanner(new File("C:/Users/nati/Documents/FACULTAD/CUARTO/Programacion Concurrente/FinalConcurrente/mtx_final.txt"));
 			scanner = new Scanner(new File(path));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -229,5 +196,6 @@ public class RdP {
 		}
 		return mtx_i;
 	}
+	
 	
 }

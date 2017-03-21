@@ -12,8 +12,8 @@ public class GestorMonitor {
 
 	public GestorMonitor(RdP rdp){
 		this.mtx = new Mutex();
-		this.politica = new Politicas();
 		this.rdp = rdp;
+		this.politica = new Politicas(this.rdp.getN_p(),this.rdp.getN_t());
 		this.colas =  new Cola[this.rdp.getN_t()];
 		for(int jj = 0; jj < colas.length; jj++){
 			colas[jj] = new Cola();			
@@ -35,9 +35,10 @@ public class GestorMonitor {
 			k = rdp.disparar(transicion);
 			
 			if(k){
+				politica.disparoOK(transicion);
 				vs = rdp.sensibilizadas();
 				m = get_m(vs,vc,m);
-
+				
 				if(necesito_politica(m)){
 					int next_transicion = politica.cual(m);					
 					colas[next_transicion].release();

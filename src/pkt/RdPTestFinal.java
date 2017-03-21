@@ -9,7 +9,7 @@ public class RdPTestFinal {
 	RdP rdp = new RdP(false);
 	int [][]marcado_actual = new int[rdp.getN_p()][rdp.getN_t()];
 	int [] vector1 = {0,1,3,4,6,8};
-	//int [] vector2 = {0,1,2,3,0,1,0,1,0,1};
+	//int [] vector1 = {0,1,2,3,0,1,0,1,0,1};
 	
 	@Test
 	public void testDisparar() {

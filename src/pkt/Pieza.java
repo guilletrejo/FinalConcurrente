@@ -23,7 +23,7 @@ public class Pieza extends Thread {
 			for(int ii = 0; ii < transicion.length; ii++){		
 				GM.disparar_transicion(transicion[ii]);				
 				try {
-					sleep(10);
+					sleep(1);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

@@ -10,11 +10,8 @@ public class Main {
 	private static int[] numero_transisiconesA2 = {2,13,5,7,8};
 	private static int[] numero_transisiconesB = {9,10,11,12};
 	private static int[] numero_transisiconesC = {14,15,16,17,18,19};
-
-	private static int[] numero_transisiconesA4 = {0};
-
-	private static int[] numero_transisiconesA = {0};
-	//private static int[] numero_transisiconesA4 = {0};
+	private static int[] numero_transisiconesA = {0,0};
+	
 	private static int[] numero_transisiconesProd = {0,1};
 	private static int[] numero_transisiconesCons = {2,3};
 
@@ -43,10 +40,14 @@ public class Main {
 		}
 		else{
 			Pieza productor  = new Pieza(GDM,"PRODUCTOR",numero_transisiconesProd,nombre_transiciones_test);
+			Pieza productor2  = new Pieza(GDM,"PRODUCTOR",numero_transisiconesProd,nombre_transiciones_test);
 			Pieza consumidor  = new Pieza(GDM,"CONSUMIDOR",numero_transisiconesCons,nombre_transiciones_test);
+		//	Pieza consumidor2  = new Pieza(GDM,"CONSUMIDOR",numero_transisiconesCons,nombre_transiciones_test);
 			
 			productor.start();
 			consumidor.start();
+			productor2.start();
+			//consumidor2.start();
 		}
 	}
 

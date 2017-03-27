@@ -11,9 +11,9 @@ public class GestorMonitor {
 
 
 	public GestorMonitor(RdP rdp){
-		this.mtx = new Mutex();
-		this.politica = new Politicas();
 		this.rdp = rdp;
+		this.mtx = rdp.getMtx();
+		this.politica = new Politicas();
 		this.colas =  new Cola[this.rdp.getN_t()];
 		for(int jj = 0; jj < colas.length; jj++){
 			colas[jj] = new Cola();			
@@ -22,7 +22,8 @@ public class GestorMonitor {
 
 	public void disparar_transicion(int transicion){
 		boolean [] vs,vc,m;
-		boolean k; 
+		boolean k;
+		int flag_disparo;
 
 		k = mtx.acquire(); 	
 
@@ -32,7 +33,12 @@ public class GestorMonitor {
 
 		while(k){
 
-			k = rdp.disparar(transicion);
+			flag_disparo = rdp.disparar(transicion);
+			System.out.println("SOy la flag  " + flag_disparo + "  Hilo:  " + Thread.currentThread());
+
+			if (flag_disparo==0) k=false;
+			else if (flag_disparo==1) k=true;
+			else if (flag_disparo==2) break;
 			
 			if(k){
 				vs = rdp.sensibilizadas();

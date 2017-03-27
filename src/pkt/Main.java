@@ -23,7 +23,8 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.printf("Arranca la produccion de piezas\n");
 		
-		RdP rdp = new RdP(TEST);
+		Mutex mtx = new Mutex();
+		RdP rdp = new RdP(TEST, mtx);
 		GestorMonitor GDM = new GestorMonitor(rdp);
 				
 

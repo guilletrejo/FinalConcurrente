@@ -17,7 +17,7 @@ public class Pieza extends Thread {
 	}
 
 	public void run() {
-		while(cant_piezas_terminadas < 100){
+		while(cant_piezas_terminadas < 10){
 		//if(true){
 
 			for(int ii = 0; ii < transicion.length; ii++){		

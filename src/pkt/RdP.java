@@ -7,10 +7,13 @@ public class RdP {
 	private int n_p = 6;
 	private int n_t = 4;
 	Thread t;
+	private Mutex mtx;
+	private Tiempo tiempo;
 	//private static String[] plazas = {"InterbloqPzaB","m1","m2","m3","m4","P10","P11","P12","P13","P14","P15","P16","P17","P18","P20","P21","P22","P23","P27","P28","P30","P31","P32","P33","P34","P35","r1","r2","r3"};
 	//private static String[] plazas = {"P1","P2","P3","P4"};
 	//private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
 	
+
 	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
 			{0},{10},{0},{0},{0},{1},{1},{10},{0},{0},{0},{0},{0},
 			{1},{1},{1}};
@@ -18,73 +21,12 @@ public class RdP {
 	private int matriz_pre [][] = new int [n_p][n_t];
 	private int matriz_post [][] = new int [n_p][n_t];
 
-//	private int matriz_pre [][] = {{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0}, //I-
-//			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,0,0,0}};
-//
-//
-//	private int matriz_post [][] = {{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0},
-//			{1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0},
-//			{0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0},
-//			{0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
-//			{0,0,0,0,1,1,0,0,0,0,1,0,1,0,0,0,0,1,0,0},
-//			{0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0}};
-
-
 	private int matriz_i [][];// = matriz_post - matriz_pre;
 
 	private int marcado_actual[][];
 
-	public RdP( boolean TEST){
+	public RdP( boolean TEST, Mutex mtx){
+		this.mtx = mtx;
 		
 		if (!TEST){
 			n_p = 30;
@@ -99,7 +41,8 @@ public class RdP {
 			matriz_pre = get_mtx("text_files/mtx_prod_cons_i_pre.txt");
 			marcado_actual = marcado_inicial_test;
 		}
-
+		
+		tiempo = new Tiempo(n_t);
 		matriz_i = resta(matriz_post,matriz_pre);		
 	}
 
@@ -162,24 +105,71 @@ public class RdP {
 		return resultado;
 	}
 
-	public boolean disparar(int index){
+	/* Rdp devolverá int. Si '0' es false. Si '1' es un true. Si '2' sacalo del monitor */
+	public int disparar(int index){
 		t = Thread.currentThread();
 		int [] resultado_disparo = new int[n_p];
 		int vector_dt[][] = new int[1][n_t]; 
 		vector_dt [0][index] = 1;
+		boolean ventana, k = false, antes;
 
 		resultado_disparo = suma_vec(transponer(marcado_actual)[0],transponer(producto(matriz_i,transponer(vector_dt)))[0]);
 
 		for(int i = 0;i < resultado_disparo.length;i++){
 			if (resultado_disparo[i] < 0){
-				return false;
+				return 0;
 			}
 		}
 		
-		for (int j = 0; j < resultado_disparo.length; j++) {
-			marcado_actual[j][0]=resultado_disparo[j]; 
+		System.out.println("Voy a disparar  " + index);
+		/* ¡Tiempo! */
+		if(tiempo.tiene_tiempo(index)){			
+			ventana = tiempo.testVentanaTiempo(index);
+			if(ventana){
+				k = tiempo.alguien_esperando(index);
+			} else {
+				System.out.println("Estoy en antes  ");
+				antes = tiempo.antes_ventana(index);
+				mtx.release();
+				if (antes){
+					tiempo.set_esperando(index);
+					try {
+						Thread.sleep(tiempo.get_sleep(index));
+						System.out.println("Estoy despierto w8  ");
+						return 2;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} else {
+					System.out.println("Estoy despues de la ventana  ");
+					k = false;
+				}
+			}
+		} else {
+			k=true;
 		}
-		return true;
+		
+		
+		if (k){
+			tiempo.reset_esperando(index);
+			boolean [] sensibilizadas_prev = sensibilizadas();
+			for (int j = 0; j < resultado_disparo.length; j++) {
+				marcado_actual[j][0]=resultado_disparo[j]; 
+			}
+			boolean [] sensibilizadas_nueva = sensibilizadas();
+			
+			for (int j = 0; j < sensibilizadas_nueva.length; j++) {
+				if(sensibilizadas_prev[j]==false && sensibilizadas_nueva[j]==true){
+					tiempo.setNuevoTimeStamp(j);
+				} 
+			}
+			
+			return 1;
+			
+		} else {
+			return 0;
+		}
 	}
 
 	public boolean[] sensibilizadas(){
@@ -230,4 +220,7 @@ public class RdP {
 		return mtx_i;
 	}
 	
+	public Mutex getMtx() {
+		return mtx;
+	}
 }

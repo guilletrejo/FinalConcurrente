@@ -11,7 +11,7 @@ public class Main {
 	private static int[] numero_transisiconesB = {9,10,11,12};
 	private static int[] numero_transisiconesC = {14,15,16,17,18,19};
 
-	private static int[] numero_transisiconesA4 = {0};
+	//private static int[] numero_transisiconesA4 = {0};
 
 	private static int[] numero_transisiconesA = {0};
 	//private static int[] numero_transisiconesA4 = {0};
@@ -23,24 +23,43 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.printf("Arranca la produccion de piezas\n");
 		
+//		Clock clk = new Clock();
+//		clk.start();
+		
 		Mutex mtx = new Mutex();
 		RdP rdp = new RdP(TEST, mtx);
 		GestorMonitor GDM = new GestorMonitor(rdp);
+
 				
 
 		
 		if (!TEST){
+			
+			
 			Pieza pzaA = new Pieza(GDM,"PIEZA AGEN",numero_transisiconesA,nombre_transiciones);
 			Pieza pzaA1 = new Pieza(GDM,"PIEZA A1",numero_transisiconesA1,nombre_transiciones);
 			Pieza pzaA2 = new Pieza(GDM,"PIEZA A2",numero_transisiconesA2,nombre_transiciones);
 			Pieza pzaB  = new Pieza(GDM,"PIEZA B",numero_transisiconesB,nombre_transiciones);
 			Pieza pzaC  = new Pieza(GDM,"PIEZA C",numero_transisiconesC,nombre_transiciones);
 			
+			Pieza pzaAA = new Pieza(GDM,"PIEZA AGEN",numero_transisiconesA,nombre_transiciones);
+			Pieza pzaAA1 = new Pieza(GDM,"PIEZA AA1",numero_transisiconesA1,nombre_transiciones);
+//			Pieza pzaAA2 = new Pieza(GDM,"PIEZA AA2",numero_transisiconesA2,nombre_transiciones)\
+			Pieza pzaB1  = new Pieza(GDM,"PIEZA B",numero_transisiconesB,nombre_transiciones);
+			Pieza pzaBB  = new Pieza(GDM,"PIEZA BB",numero_transisiconesB,nombre_transiciones);
+			Pieza pzaCC  = new Pieza(GDM,"PIEZA CC",numero_transisiconesC,nombre_transiciones);
+			
+			pzaB.start();
+			pzaAA1.start();
 			pzaA.start();
 			pzaA1.start();
 			pzaA2.start();
-			pzaB.start();
 			pzaC.start();
+			//pzaBB.start();
+	//	pzaB1.start();
+			//pzaCC.start();
+
+			
 		}
 		else{
 			Pieza productor  = new Pieza(GDM,"PRODUCTOR",numero_transisiconesProd,nombre_transiciones_test);

@@ -13,38 +13,58 @@ public class GestorMonitor {
 	public GestorMonitor(RdP rdp){
 		this.rdp = rdp;
 		this.mtx = rdp.getMtx();
-		this.politica = new Politicas();
+		this.politica = new Politicas(this.rdp.getN_p(),this.rdp.getN_t());
 		this.colas =  new Cola[this.rdp.getN_t()];
 		for(int jj = 0; jj < colas.length; jj++){
 			colas[jj] = new Cola();			
 		}
 	}
 
-	public void disparar_transicion(int transicion){
+	public boolean disparar_transicion(int transicion){
 		boolean [] vs,vc,m;
 		boolean k;
 		int flag_disparo;
 
 		k = mtx.acquire(); 	
+		Pieza p;
 
 		vc = new boolean[rdp.getN_t()];   
 		m = new boolean[rdp.getN_t()];		
 		vs = new boolean[rdp.getN_t()];		
 
 		while(k){
-
+			
+			p = (Pieza)Thread.currentThread();
+			
 			flag_disparo = rdp.disparar(transicion);
-			System.out.println("SOy la flag  " + flag_disparo + "  Hilo:  " + Thread.currentThread());
+			//System.out.println("Thread  " + p.getName() + "  PrimeraTransicion:  " + p.getTransicion()[0]);
 
 			if (flag_disparo==0) k=false;
 			else if (flag_disparo==1) k=true;
-			else if (flag_disparo==2) break;
+			else if (flag_disparo==2) {
+				//mtx.release();
+				return false;
+			
+			}
+			else if (flag_disparo==3) {
+				p.setIndice(0);
+				return false;
+			}
 			
 			if(k){
+				politica.disparoOK(transicion);
+//				System.out.println("[GDM] get sens");
 				vs = rdp.sensibilizadas();
 				m = get_m(vs,vc,m);
-
+//				System.out.println("[GDM] get VS");
+//				for(int i = 0; i<vc.length;i++)System.out.print(" "+ vs[i]+"["+name_t[i]+"]");
+//				System.out.println("");
+//				System.out.println("[GDM] get VC");
+//				for(int i = 0; i<vc.length;i++)System.out.print(" "+ vc[i]+"["+name_t[i]+"]");
+//				System.out.println("");
+				
 				if(necesito_politica(m)){
+					//System.out.println("[GDM] politica");
 					int next_transicion = politica.cual(m);					
 					colas[next_transicion].release();
 					break;					
@@ -57,11 +77,13 @@ public class GestorMonitor {
 			
 			else {
 				k = mtx.release();
+				//System.out.println("[GDM]HILO DORMIDO::"+ Thread.currentThread().getName()+ "Transicion::"+name_t[transicion]);
 				colas[transicion].acquire();
+				//System.out.println("[GDM]HILO DESPIERTO::"+ Thread.currentThread().getName()+ "Transicion::"+name_t[transicion]);
 			}
 		}
 		
-		return;
+		return true;
 	}
 
 	private boolean necesito_politica(boolean[] m) {

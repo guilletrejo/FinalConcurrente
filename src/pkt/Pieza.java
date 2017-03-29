@@ -6,6 +6,7 @@ public class Pieza extends Thread {
 	private int[] transicion;// = {9,10,11,12};
 	private int cant_piezas_terminadas;
 	private GestorMonitor GM;
+	int indice;
 
 	public Pieza (GestorMonitor GM, String nombre_hilo, int [] transiciones, String[] nombre_transiciones){
 		this.GM = GM;
@@ -14,27 +15,37 @@ public class Pieza extends Thread {
 		this.cant_piezas_terminadas = 0;
 		this.transicion = transiciones;
 		this.name_t = nombre_transiciones;
+		indice = 0;
 	}
 
 	public void run() {
-		while(cant_piezas_terminadas < 10){
+		while(cant_piezas_terminadas < 1000){
 		//if(true){
-
-			for(int ii = 0; ii < transicion.length; ii++){		
-				GM.disparar_transicion(transicion[ii]);				
-				try {
-					sleep(10);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}				
+			indice = 0;
+			while(indice < transicion.length){		
+				while(!GM.disparar_transicion(transicion[indice]));
+				indice ++;
+//				try {
+//					sleep(10);
+//				} catch (InterruptedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}				
 			}
 			
 			cant_piezas_terminadas ++;
-			System.out.printf("[%s] %d TERMINADAS \n",this.getName(),cant_piezas_terminadas);
+			//System.out.printf("[%s] %d TERMINADAS \n",this.getName(),cant_piezas_terminadas);
 		}
+		
+	
 	}
 
+	public void setIndice(int indice) {
+		System.out.println("SET");
+		this.indice = indice;
+	}
 
-
+	public int[] getTransicion() {
+		return transicion;
+	}
 }

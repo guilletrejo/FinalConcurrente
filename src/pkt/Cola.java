@@ -14,6 +14,7 @@ public class Cola {
 	public synchronized boolean acquire(){
 		vector_vc = true;
 		try{
+			//System.out.println("[Cola] HILO DORMIDO::"+ Thread.currentThread().getName());
 			wait();
 		}
 		catch(InterruptedException e){}

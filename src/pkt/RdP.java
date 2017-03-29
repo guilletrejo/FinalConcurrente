@@ -11,7 +11,7 @@ public class RdP {
 	private Tiempo tiempo;
 	//private static String[] plazas = {"InterbloqPzaB","m1","m2","m3","m4","P10","P11","P12","P13","P14","P15","P16","P17","P18","P20","P21","P22","P23","P27","P28","P30","P31","P32","P33","P34","P35","r1","r2","r3"};
 	//private static String[] plazas = {"P1","P2","P3","P4"};
-	//private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
+	private static String[] name_t = {"T0","T11","T12","T13","T15","T16","T17","T18","T19","T21","T22","T23","T24","T3","T31","T32","T33","T34","T35","T36"};
 	
 
 	private int marcado_inicial[][] = {{1},{1},{1},{1},{1},{10},{0},{0},{0},{0},{0},{0},{0},
@@ -121,32 +121,94 @@ public class RdP {
 			}
 		}
 		
-		System.out.println("Voy a disparar  " + index);
+		//System.out.println("[RdP] Voy a disparar  " + index);
 		/* ¡Tiempo! */
 		if(tiempo.tiene_tiempo(index)){			
 			ventana = tiempo.testVentanaTiempo(index);
+		//	System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Tiene Tiempo ->" +name_t[index] );
 			if(ventana){
 				k = tiempo.alguien_esperando(index);
+				//k=true;
+				//System.out.println("[RDP] Ventana OK" + k);
+				//System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Ventana OK ->" +name_t[index] );
 			} else {
-				System.out.println("Estoy en antes  ");
+				//System.out.println("Estoy en antes  ");
+				
 				antes = tiempo.antes_ventana(index);
 				mtx.release();
 				if (antes){
 					tiempo.set_esperando(index);
+					//System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Antes de Ventana ->" +name_t[index] );
 					try {
+					//	System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Me voy a dormir! ->" +name_t[index] );
 						Thread.sleep(tiempo.get_sleep(index));
-						System.out.println("Estoy despierto w8  ");
+						//System.out.println("Estoy despierto w8  "+Thread.currentThread().getName());
+						///System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Despierto! ->" +name_t[index] );
 						return 2;
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				} else {
-					System.out.println("Estoy despues de la ventana  ");
+					//System.out.println("Estoy despues de la ventana  ");
+					System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Despues de la ventana ->" +name_t[index] );
 					k = false;
+					//Pieza p;
+					switch(index){
+						case 3: marcado_actual[1][0]=1;
+								marcado_actual[7][0]=0;
+								marcado_actual[5][0]++;
+								break;
+						case 6: marcado_actual[2][0]=1;
+								marcado_actual[11][0]=0;
+								marcado_actual[5][0]++;
+								break;
+						case 13:marcado_actual[3][0]=1;
+								marcado_actual[8][0]=0;
+								marcado_actual[5][0]++;
+								marcado_actual[18][0]=1;
+								break;
+						case 7: marcado_actual[4][0]=1;
+								marcado_actual[12][0]=0;
+								marcado_actual[5][0]++;
+								marcado_actual[18][0]=1;
+								break;
+						case 11:marcado_actual[2][0]=1;
+								marcado_actual[19][0]=1;
+								marcado_actual[16][0]=0;
+								marcado_actual[0][0]=1;
+								marcado_actual[14][0]++;
+								break;
+						case 16:marcado_actual[4][0]=1;
+								marcado_actual[22][0]=0;
+								marcado_actual[20][0]++;
+								marcado_actual[18][0]=1;
+								break;
+						case 18:marcado_actual[3][0]=1;
+								marcado_actual[24][0]=0;
+								marcado_actual[20][0]++;
+								marcado_actual[18][0]=1;
+								break;
+						case 12:marcado_actual[17][0]=0;
+								marcado_actual[27][0]=1;
+								marcado_actual[14][0]++;
+								break;
+						case 4: marcado_actual[5][0]++;
+						 		marcado_actual[27][0]=1;
+						 		marcado_actual[19][0]=1;
+						 		marcado_actual[9][0]=0;
+								break;
+						
+					}	
+					//Thread.currentThread().stop();
+					//Thread.currentThread().start();
+			//		p=(Pieza)p.currentThread().stop
+					assert_test();
+					return 3;
 				}
 			}
 		} else {
+			//System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> NO Tiene Tiempo ->" +name_t[index] );
 			k=true;
 		}
 		
@@ -164,10 +226,13 @@ public class RdP {
 					tiempo.setNuevoTimeStamp(j);
 				} 
 			}
-			
+			//System.out.println("[RdP] Disparo OK " + name_t[index] + " Tiene tiempo "+tiempo.tiene_tiempo(index));
+			//System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Disparo OK ->" +name_t[index] );
+			assert_test();
 			return 1;
 			
 		} else {
+			//System.out.println("[THREAD "+ Thread.currentThread().getName() + "] ->  no puedo disparar Me voy a la cola -> " +name_t[index] );
 			return 0;
 		}
 	}
@@ -222,5 +287,29 @@ public class RdP {
 	
 	public Mutex getMtx() {
 		return mtx;
+	}
+	
+	private void assert_test(){
+		assert(1==(marcado_actual[15][0]+marcado_actual[16][0]+marcado_actual[0][0]));
+		assert(1==(marcado_actual[1][0]+marcado_actual[7][0]));
+		assert(1==(marcado_actual[11][0]+marcado_actual[16][0]+marcado_actual[2][0]));
+		assert(1==(marcado_actual[24][0]+marcado_actual[8][0]+marcado_actual[3][0]));
+		assert(1==(marcado_actual[12][0]+marcado_actual[22][0]+marcado_actual[4][0]));
+		assert(10==(marcado_actual[5][0]+marcado_actual[6][0]+marcado_actual[7][0]
+								+marcado_actual[8][0]+marcado_actual[9][0]+marcado_actual[10][0]
+												+marcado_actual[11][0]+marcado_actual[12][0]+marcado_actual[13][0]));
+		assert(10==(marcado_actual[14][0]+marcado_actual[15][0]+marcado_actual[16][0]+marcado_actual[17][0]));
+		assert(1==(marcado_actual[8][0]+marcado_actual[10][0]+marcado_actual[12][0]
+												+marcado_actual[18][0]+marcado_actual[21][0]+marcado_actual[22][0]
+												+marcado_actual[25][0]+marcado_actual[24][0]+marcado_actual[23][0]));
+		assert(1==(marcado_actual[9][0]+marcado_actual[16][0]+marcado_actual[19][0]));
+		assert(10==(marcado_actual[20][0]+marcado_actual[21][0]+marcado_actual[22][0]
+												+marcado_actual[25][0]+marcado_actual[24][0]+marcado_actual[23][0]));
+				
+		assert(1==(marcado_actual[25][0]+marcado_actual[6][0]+marcado_actual[26][0]));
+				
+		assert(1==(marcado_actual[9][0]+marcado_actual[10][0]+marcado_actual[27][0]
+												+marcado_actual[15][0]+marcado_actual[17][0]+marcado_actual[23][0]));
+		assert(1==(marcado_actual[28][0]+marcado_actual[13][0]+marcado_actual[21][0]));
 	}
 }

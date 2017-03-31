@@ -98,17 +98,17 @@ public class Politicas {
 		if (j == 8){
 			cont_a = cont_a + 1;
 			cont_abc++;
-			System.out.println("[TERMINADAS A] "  + cont_a + " -> [" + Thread.currentThread().getName() + "]" );
+			System.out.println("[TERMINADAS A] "  + (int)cont_a + " -> [" + Thread.currentThread().getName() + "]" );
 		}
 		else if (j == 12){
 			cont_b ++;
 			cont_abc ++;
-			System.out.println("[TERMINADAS B] "  + cont_b + " -> [" + Thread.currentThread().getName() + "]" );
+			System.out.println("[TERMINADAS B] "  + (int) cont_b + " -> [" + Thread.currentThread().getName() + "]" );
 		}
 		else if (j == 19){
 			cont_c ++;
 			cont_abc++;
-			System.out.println("[TERMINADAS C] "  + cont_c + " -> [" + Thread.currentThread().getName() + "]" );
+			System.out.println("[TERMINADAS C] "  + (int) cont_c + " -> [" + Thread.currentThread().getName() + "]" );
 		}
 	}
 	private void set_P(int [] vec_max_pri, int [] vec_med_pri, int [] vec_min_pri ){

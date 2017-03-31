@@ -50,12 +50,12 @@ public class Main {
 			Pieza pzaCC  = new Pieza(GDM,"PIEZA CC",numero_transisiconesC,nombre_transiciones);
 			
 			pzaB.start();
-			pzaAA1.start();
+			//pzaAA1.start();
 			pzaA.start();
 			pzaA1.start();
 			pzaA2.start();
 			pzaC.start();
-			//pzaBB.start();
+		//	pzaBB.start();
 	//	pzaB1.start();
 			//pzaCC.start();
 

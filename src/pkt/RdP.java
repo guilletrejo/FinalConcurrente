@@ -153,58 +153,6 @@ public class RdP {
 					//System.out.println("Estoy despues de la ventana  ");
 					System.out.println("[THREAD "+ Thread.currentThread().getName() + "] -> Despues de la ventana ->" +name_t[index] );
 					k = false;
-					//Pieza p;
-					switch(index){
-						case 3: marcado_actual[1][0]=1;
-								marcado_actual[7][0]=0;
-								marcado_actual[5][0]++;
-								break;
-						case 6: marcado_actual[2][0]=1;
-								marcado_actual[11][0]=0;
-								marcado_actual[5][0]++;
-								break;
-						case 13:marcado_actual[3][0]=1;
-								marcado_actual[8][0]=0;
-								marcado_actual[5][0]++;
-								marcado_actual[18][0]=1;
-								break;
-						case 7: marcado_actual[4][0]=1;
-								marcado_actual[12][0]=0;
-								marcado_actual[5][0]++;
-								marcado_actual[18][0]=1;
-								break;
-						case 11:marcado_actual[2][0]=1;
-								marcado_actual[19][0]=1;
-								marcado_actual[16][0]=0;
-								marcado_actual[0][0]=1;
-								marcado_actual[14][0]++;
-								break;
-						case 16:marcado_actual[4][0]=1;
-								marcado_actual[22][0]=0;
-								marcado_actual[20][0]++;
-								marcado_actual[18][0]=1;
-								break;
-						case 18:marcado_actual[3][0]=1;
-								marcado_actual[24][0]=0;
-								marcado_actual[20][0]++;
-								marcado_actual[18][0]=1;
-								break;
-						case 12:marcado_actual[17][0]=0;
-								marcado_actual[27][0]=1;
-								marcado_actual[14][0]++;
-								break;
-						case 4: marcado_actual[5][0]++;
-						 		marcado_actual[27][0]=1;
-						 		marcado_actual[19][0]=1;
-						 		marcado_actual[9][0]=0;
-								break;
-						
-					}	
-					//Thread.currentThread().stop();
-					//Thread.currentThread().start();
-			//		p=(Pieza)p.currentThread().stop
-					assert_test();
-					return 3;
 				}
 			}
 		} else {

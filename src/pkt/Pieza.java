@@ -25,12 +25,12 @@ public class Pieza extends Thread {
 			while(indice < transicion.length){		
 				while(!GM.disparar_transicion(transicion[indice]));
 				indice ++;
-//				try {
-//					sleep(10);
-//				} catch (InterruptedException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}				
+				try {
+					sleep(10);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}				
 			}
 			
 			cant_piezas_terminadas ++;

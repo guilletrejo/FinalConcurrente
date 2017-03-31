@@ -44,13 +44,9 @@ public class GestorMonitor {
 			else if (flag_disparo==2) {
 				//mtx.release();
 				return false;
+				//break;
 			
 			}
-			else if (flag_disparo==3) {
-				p.setIndice(0);
-				return false;
-			}
-			
 			if(k){
 				politica.disparoOK(transicion);
 //				System.out.println("[GDM] get sens");

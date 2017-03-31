@@ -17,33 +17,35 @@ public class Tiempo {
 		alfa = new int [N_t];
 		beta = new int [N_t];
 		//this.clk = clk;
-		Arrays.fill(alfa, -1);
+		Arrays.fill(alfa, 0);
+		Arrays.fill(beta, 10000);
 		Arrays.fill(ts, System.currentTimeMillis());
 
-		alfa[14] =10;//T31
-		alfa[0] = 27;
-		alfa[3] = 28;
+		//alfa[14] =10;//T31
+		alfa[0] = 21;
+		alfa[3] = 25;
 		//alfa[4] = 4;
-		alfa[6] = 3;
-		alfa[7] = 8;
-		alfa[9] = 30;
-		alfa[13] = 22;
-		alfa[11] = 13;
-		alfa[16] = 20;
-		alfa[18] = 17;
+		alfa[6] = 5;
+		alfa[7] = 10;
+		alfa[10] = 40;
+		alfa[9] = 23;
+		alfa[13] = 24;
+		alfa[11] = 15;
+		alfa[16] = 17;
+		alfa[18] = 19;
 		
-		beta[14]= 100000;
-		beta[0] = 100;
-		beta[3] = 32;
-		//beta[4] = 6;
-		beta[6] = 10;
-		beta[7] = 14;
-		beta[9] = 100;
-		beta[13] = 26;
-		beta[11] = 19;
-		beta[16] = 24;
-		beta[18] = 23;
-		
+//		beta[14]= 100000;
+//		beta[0] = 100000;
+//		beta[3] = 32;
+//		//beta[4] = 6;
+//		beta[6] = 10;
+//		beta[7] = 14;
+//		beta[9] = 100;
+//		beta[13] = 26;
+//		beta[11] = 19;
+//		beta[16] = 24;
+//		beta[18] = 23;
+//		
 //		alfa[1] = 28;
 //		alfa[4] = 3;
 //		alfa[5] = 8;
@@ -66,18 +68,12 @@ public class Tiempo {
 	
 	public void setNuevoTimeStamp(int t_index){
 		ts[t_index] = System.currentTimeMillis();
-		//ts[t_index] = clk.get_time();
 		long tiempo_10sec = ts[t_index]/10000;
 		return;
 	}
 	
 	public boolean testVentanaTiempo(int t_index){
 		long tiempo_actual = System.currentTimeMillis();
-		long tiempo_10sec = tiempo_actual/10000;
-		//System.out.println("[Tiempo] testVentanaTiempo  " + (tiempo_actual - ts[t_index]) + " ->Index " +name_t[t_index]);
-		//System.out.println("Indice  " + t_index);
-//		clk.clk_pause();
-//		clk.clk_start();
 		if(tiempo_actual - ts[t_index]>=alfa[t_index] && tiempo_actual- ts[t_index] < beta[t_index]){
 			return true;
 		} else {
@@ -88,8 +84,6 @@ public class Tiempo {
 	public boolean alguien_esperando(int t_index){
 		Thread t;
 		t = Thread.currentThread();
-//		clk.clk_pause();
-//		clk.clk_start();
 		//System.out.println("[Tiempo] alguien_esperando -> en espera: " +en_espera[t_index] + " ->ID HILO " +t.getId());
 		if (en_espera[t_index] == t.getId() || (en_espera[t_index] == 0)){
 			return true;
@@ -100,9 +94,7 @@ public class Tiempo {
 	
 	public boolean antes_ventana(int t_index) {
 		long tiempo_actual  = System.currentTimeMillis();
-		//long tiempo_10sec = tiempo_actual/10000;
 		//System.out.println("Antes de la ventana!  " + (tiempo_actual - ts[t_index]));
-		
 		if (tiempo_actual - ts[t_index] < alfa[t_index]){
 			return true;
 		} else {
@@ -129,7 +121,7 @@ public class Tiempo {
 	}
 	
 	public boolean tiene_tiempo(int t_index){
-		if (alfa[t_index]==-1) return false;
+		if (alfa[t_index]==-1) return true;
 		else return true;
 	}
 

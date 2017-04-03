@@ -22,48 +22,17 @@ public class Tiempo {
 		Arrays.fill(ts, System.currentTimeMillis());
 
 		//alfa[14] =10;//T31
-		alfa[0] = 21;
-		alfa[3] = 25;
+		alfa[0] = 21; 
+		alfa[3] = 23;
 		//alfa[4] = 4;
 		alfa[6] = 5;
 		alfa[7] = 10;
-		alfa[10] = 40;
 		alfa[9] = 23;
+		alfa[10] = 40;
 		alfa[13] = 24;
 		alfa[11] = 15;
 		alfa[16] = 17;
 		alfa[18] = 19;
-		
-//		beta[14]= 100000;
-//		beta[0] = 100000;
-//		beta[3] = 32;
-//		//beta[4] = 6;
-//		beta[6] = 10;
-//		beta[7] = 14;
-//		beta[9] = 100;
-//		beta[13] = 26;
-//		beta[11] = 19;
-//		beta[16] = 24;
-//		beta[18] = 23;
-//		
-//		alfa[1] = 28;
-//		alfa[4] = 3;
-//		alfa[5] = 8;
-//		alfa[9] = 22;
-//		alfa[2] = 22;
-//		alfa[14] = 20;
-//		alfa[15] = 19;
-//		alfa[17] = 16;
-//		
-//		beta[1] = 32;
-//		beta[4] = 7;
-//		beta[5] = 12;
-//		beta[9] = 24;
-//		beta[2] = 26;
-//		beta[14] = 24;
-//		beta[15] = 23;
-//		beta[17] = 20;
-	
 	}
 	
 	public void setNuevoTimeStamp(int t_index){

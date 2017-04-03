@@ -9,7 +9,7 @@ public class Politicas {
 	private static int[] C = {14,15,16,17,18,19};
 	
 	double porc_a = 0.25, porc_b = 0.5, porc_c = 0.25;
-	//double porc_a = 0.33, porc_b = 0.33, porc_c = 0.33;
+	//double porc_a  = 0.33, porc_b = 0.33, porc_c = 0.33;
 	//double porc_a = 0.5, porc_b = 0.3, porc_c = 0.2;
 	int index;
 	
@@ -48,16 +48,7 @@ public class Politicas {
 				break;
 			}
 		}
-		
-//		for (i = 0; i<vector_m.length; i++){
-//			if (vector_m[i] == true) {
-//				j=i;
-//				break;
-//			}
-			
-		//}
-		//System.out.printf("Estoy en Politica elijo transicion %d \n" , j);
-		
+
 		return j;
 	}
 	
@@ -78,7 +69,7 @@ public class Politicas {
 		//System.out.println("INDEX::::::::::" + index);
 		switch(index){
 			case 0: set_P(A,B,C);
-					break;//for(int ii = 0; ii < matriz_P.length; ii++){
+					break;
 			case 1: set_P(A,C,B);
 					break;
 			case 2: set_P(B,A,C);
@@ -88,12 +79,12 @@ public class Politicas {
 			case 4: set_P(C, A, B);
 					break;
 			case 5: set_P(C, B, A);
-					break;
-				
+					break;				
 			}
 		
 		return;
 	}
+	
 	public void disparoOK(int j){
 		if (j == 8){
 			cont_a = cont_a + 1;

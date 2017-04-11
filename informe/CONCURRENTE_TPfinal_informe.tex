@@ -115,7 +115,7 @@ pdfborderstyle={/S/U/W 1}%
 	\textsc{Tomattis}, Natasha  {\small \texttt{Mat:38.728.783}}\\
 	\href{mailto:natitomattis@gmail.com}{natitomattis@gmail.com}\\
 	\textsc{Trombotto}, Agustin  {\small \texttt{Mat:12.345.678}}\\
-	\href{mailto:sultanodetal@gmail.com}{sultanodetal@gmail.com}\\
+	\href{mailto:agustin.trombotto@alumnos.unc.ed.ar}{agustin.trombotto@alumnos.unc.ed.ar}\\
 }
 %\affil{Facultad de Ciencias Exáctas, Físicas \& Naturales, Universidad Nacional de Córdoba, Argentina.}
 
@@ -237,7 +237,7 @@ Una vez construida y verificada la red, se procede al desarrollo de un programa 
 \section{Implementacion de un monitor con Red de Petri}
 %que es un monitor??
 \subsection{Clases}
-Con el objetivo de modularizar el código y procurar el encapsulamiento de cada parte, se decidió la implementación de las siguientes clases:
+Con el objetivo de modularizar el código y procurar el desacoplo de cada parte, se decidió la implementación de las siguientes clases:
 
 \begin{itemize}
 	\item Main
@@ -295,7 +295,17 @@ Esta clase es la que toma la desicion de que transicion disparar en el caso en q
 	\item Cual(): se ele pasa un vector con las transiciones sensibilizadas y devuelve la transicion que se debe disparar. Se calcula multiplicando el vector por una matriz que lo ordena segun la prioridad actual de producción de piezas
 	\item ActualizarP(): actializa la matriz que ordena el vector segun la cantida de piezas producidas.
 \end{itemize}
+\subsubsection{Cola}
+La colas tienen un papel importante en el desarrollo de software concurrente aplicado a una red de petri. Las colas son las encargadas de establecer un "fila" para los hilos que esperarán a disparar una transision determinada.
+Es por esto que cada transision de la red tendrá asociado un objeto de esta clase, la misma contendrá dos metodos:
+\begin{itemize}
+	\item acquire(): el hilo ejecutor de este metodo se va a "dormir" a la cola (que en estado interrumpido) hasta la ejecucion del release de esta clase
+	\item release(): despierta el hilo dormido en la cola
+\end{itemize}
 
+\subsubsection{Mutex}
+El mutex es la "puerta de entrada" al monitor. Todo hilo que busque ejecutar una accion dentro del programa deberá "pedir autorizacion" para entrar.
+Esta clase utiliza un Semaphore de la libreria java.util.concurrent. El mismo posee una cola de los hilos que buscan entrar al monitor,
 \subsubsection{Tiempo}
 Este objeto es el que almacena los tiempos de sensibilizacion de cada transicion y los retrasos asociados a algunas transiciones. Algunas de sus funciones son:
 \begin{itemize}
@@ -309,8 +319,13 @@ El diagrama a continuación representa el calculo de un disparo con tiempo
 \end{figure}
 
 \section{Pruebas y Testing}
+En todo sistema automatico y con secciones criticas, es necesario brindar la seguridad de que el sistema realizar perfectamente las acciones asociadas al mismo.
+Cabe destacar los fundamentos matematicos proveidos por las Redes de Petri para este tipo de prueba, como son los P-Invariante. Estos asegurar el correcto funcionamiento de la logica en el software.
+\subsection{Unit Test Java}
 Se generaron dos test unitarios de java para probar el metodo de disparar transicion del objeto RdP, con la finalidad de corroborar la logica del programa. En la spruebas se utilizaron dos redes de petri difernetes, una la que corresponde a nustro caso y la otra una red sencilla, en este caso se utilizo un productor/consumidor.\\
 Para verificar que los disparos se produjeran correctamente y respetando la logica de la red, estos test se hicieron probando las p invariantes proporciondas por el software PIPE. Esta prueba garantiza que después de cada disparo el marcado de la red es coherente con la lógica que representa
+% Aca irá una captura del resultado del test
+
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
 \bibitem{Comer2014} Douglas E. Comer, ``Internetworking With TCP/IP," \emph{Vol I: Principles, Protocols, and Arquitecture}, pp. 473-480, Sixth Edition 2014.

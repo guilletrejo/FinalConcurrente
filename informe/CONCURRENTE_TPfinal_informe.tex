@@ -104,9 +104,9 @@ pdfborderstyle={/S/U/W 1}%
 \begin{document}
 
 % Article top matter
-{\center \large \textsf{Facultad de Ciencias Exactas, Físicas y Naturales, Progarmacion Concurrente\\}}
+{\center \large \textsf{Facultad de Ciencias Exactas, Físicas y Naturales Programacion Concurrente\\}}
 \title{%\HRule \\[0.4cm]		
-		{ \bfseries{Trabajo Práctico Final: Sistema de manufacturación robotizado simulado mediante Redes de Petri.}}\\[0.4cm]
+		{ \bfseries{Trabajo Práctico Final: Sistema de manufacturación robotizado simulado mediante Redes de Petri}}\\[0.4cm]
 		%\HRule \\[1.5cm]
 		} %\LaTeX is a macro for printing the Latex logo
 \author{
@@ -114,7 +114,7 @@ pdfborderstyle={/S/U/W 1}%
 	\href{mailto:mtaguerreberry@gmail.com}{mtaguerreberry@gmail.com}\\
 	\textsc{Tomattis}, Natasha  {\small \texttt{Mat:38.728.783}}\\
 	\href{mailto:natitomattis@gmail.com}{natitomattis@gmail.com}\\
-	\textsc{Trombotto}, Agustin  {\small \texttt{Mat:12.345.678}}\\
+	\textsc{Trombotto}, Agustin  {\small \texttt{Mat:39.071.116}}\\
 	\href{mailto:agustin.trombotto@alumnos.unc.ed.ar}{agustin.trombotto@alumnos.unc.ed.ar}\\
 }
 %\affil{Facultad de Ciencias Exáctas, Físicas \& Naturales, Universidad Nacional de Córdoba, Argentina.}
@@ -132,44 +132,14 @@ pdfborderstyle={/S/U/W 1}%
 %\clearpage
 
 \section{Introducción}
-Es un elemento muy importante del paper, a través de ella el lector se nutre de la información 
-suficiente para  comprender y evaluar por qué fue necesario realizar el estudio.
-La introducción lleva al lector desde lo que ya sabe a lo que el investigador quiere decirle. Al
-terminar de leer la introducción, el lector estará persuadido de que hay un problema
-importante que abordar y comprenderá el contexto del mensaje principal que se le transmitió.
-Por lo tanto, la introducción debe concentrar, con fluidez y precisión, de manera discursiva, los
-principales elementos del problema y de la investigación, permitiendo al lector familiarizarse
-con ellos.
-He aquí una lista de aspectos que se deben tener en cuenta en la preparación de la introducción:
-\begin{itemize}
-	\item El tema de investigación; 
-	\item El objeto de estudio; 
-	\item Las motivaciones de la investigación; 
-	\item La relevancia del tema; 
-	\item El listado de los datos que serán recolectados y/o analizados; 
-	\item La mención del o los métodos de análisis; 
-	\item Panorámica general del problema que motiva la investigación; 
-	\item Los resultados genéricos que se espera obtener; 
-	\item Los alcances espacio-temporales de la investigación. 
-\end{itemize}
-
-Es de suma importancia señalar el propósito de la investigación, lo cual se logra simplemente 
-parafraseando   el  objetivo   general,   además   de   utilizarse   el   parafraseo   de   los   objetivos 
-específicos para indicar como se hizo para lograr dicho propósito.\\
-También es conveniente exponer en la introducción la hipótesis de trabajo, algo así 
-como: en este trabajo se estudió la influencia del tamaño del empaque en la caída de presión con lo cual 
-se esperaba demostrar que esta se incrementa con la reducción del tamaño de partícula.\\
-Otro ejemplo  de  hipótesis  de  trabajo  es: se  efectúa  la  evaluación  del  proceso  en  escala  de 
-laboratorio y los datos recabados permitirán el diseño de un equipo a escala industrial.
-No  debe  faltar  en  la  introducción  la  descripción  resumida  de  la  metodología  utilizada,  con 
-énfasis en el tipo de estudio, diseño de investigación, enfoque epistemológico, identificación de 
-la  población,  tipo  de  muestreo  utilizado,  tamaño  de  la  muestra,  breve  descripción  de  los 
-instrumentos   de   recolección   de   datos   que   empleo,   los   resulta
-dos   de   su   validación   y cuantificación de su confiabilidad, una pequeña descripción de la forma como se presentan los 
-resultados y un esbozo de las conclusiones que se obtienen.
+En un sistema robotizado, es de suma importancia el correcto funcionamiento de cada maquinaria garantizando, de esta manera, que no haya bloqueos entre las herramientas de producción.
+Es por ello que se realiza la simulación del proceso mediante una Red de Petri y su correspondiente ejecución en un programa en Java.
+El objetivo de este trabajo es asegurar que todo el sistema funcione de acuerdo a la lógica establecida y los tiempos pautados.
+A su vez se busca obtener ciertas cantidad de piezas producidas según la política de producción que se quiera brindar al sistema. De esta manera, el productor podría elegir cuanta cantidad de cada pieza puede realizar.
+Al finalizar y resolver esta situación obtendremos un sistema fiable, el cual no se dentrá y funcionará perfectamente en aquellas ocasiones criticas del sistema.
 
 \section{Problema propuesto}
-El sistema de manufacturación consiste en tres robots R1, R2 y R3 cuatro máquinas M1, M2, M3 y M4, tres tipos diferentes de piezas a procesar A, B y C, como se observa en la figura.
+El sistema de manufactura consiste en tres robots R1, R2 y R3 cuatro máquinas M1, M2, M3 y M4, tres tipos diferentes de piezas a procesar A, B y C, como se observa en la figura.
 Las piezas provienen de tres contenedores de entrada distintos, I1, I2 e I3, de los cuales los robots las retiran, las colocan en las máquinas para su procesamiento y depositan en tres contenedores de salidas distintos, que son: O1, O2 y O3.
 
 \begin{figure}[H] % Example image
@@ -305,13 +275,19 @@ Es por esto que cada transición de la red tendrá asociado un objeto de esta cl
 
 \subsubsection{Mutex}
 El mutex es la "puerta de entrada" al monitor. Todo hilo que busque ejecutar una acción dentro del programa deberá "pedir autorización" para entrar.
-Esta clase utiliza un Semaphore de la librería java.util.concurrent. El mismo posee una cola de los hilos que buscan entrar al monitor,
+Esta clase utiliza un Semaphore de la librería java.util.concurrent. El mismo posee una cola de los hilos que buscan entrar al monitor. Con sus métodos acquire() y release() (al igual que en la cola) posibilitarán entrar al hilo al monitor o mandarlos a dormir en espera de autorizacion para su ingreso.
 \subsubsection{Tiempo}
 Este objeto es el que almacena los tiempos de sensibilización de cada transición y los retrasos asociados a algunas transiciones. Algunas de sus funciones son:
 \begin{itemize}
-	\item TestVentanaTiempo(): 
+	\item TestVentanaTiempo()
+	\item setNuevoTimeStamp()
+	\item alguien\_esperando()	
+	\item antes\_ventana()	
+	\item set\_esperando()	
+	\item reset\_esperando()
+	\item get\_sleep()			
 \end{itemize}
-El diagrama a continuación representa el calculo de un disparo con tiempo
+El diagrama a continuación representa el calculo de un disparo con tiempo y como se comportan las funciones anteriormente descriptas:
 \begin{figure}[H] % Example image
 	\centering{\includegraphics[width=1\linewidth]{./figure/sec_tiempo.png}}
 	\caption{Diagrama de secuencia de disparo de una transición con tiempo.}
@@ -333,18 +309,11 @@ Para verificar que los disparos se produjeran correctamente y respetando la lóg
 
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
+\bibitem{ppt_clase} Redes de Petri Temporales - Material de Clase
 
-Agregar bibliografía.
+\bibitem{Libro_Clase}Java 7 Concurrency Cookbook. Javier Fernández González
 
-el libro de java del práctico
-
-filminas de clase
-
-diagramas desecuencia del profe
-
-se puede poner wel paper de mico (el tipo sabe q esta en interenet y por ende sabe q tenesmo acceso, no es boludo. quedariamos bien admitiendo que lo usamos. de paso le chupamos un toque las medias)
-
-etc
+\bibitem{Paper_Petri} Generación de Código de Sistemas Concurrentes a partir de Redes de Petri Orientadas a Proceso \emph{http://sedici.unlp.edu.ar/bitstream/handle/10915/41771/Documento\_completo.pdf?sequence=1} 
 
 
 \end{thebibliography}

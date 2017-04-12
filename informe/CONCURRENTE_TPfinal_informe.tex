@@ -325,6 +325,11 @@ Cabe destacar los fundamentos matemáticos proveídos por las Redes de Petri par
 Se generaron dos test unitarios de java para probar el método de disparar transición del objeto Rdp, con la finalidad de corroborar la lógica del programa. En las pruebas se utilizaron dos redes de petri diferentes, una la que corresponde a nuestro caso y la otra una red sencilla. En este caso se utilizó un productor/consumidor.\\
 Para verificar que los disparos se produjeran correctamente y respetando la lógica de la red, estos test se hicieron probando las P-Invariante proporciondas por el software PIPE. Esta prueba garantiza que después de cada disparo el marcado de la red sea coherente con la lógica que representa.
 % Acá irá una captura del resultado del test
+\begin{figure}[H] % Example image
+	\centering{\includegraphics[width=1\linewidth]{./figure/test_rdp_ok.png}}
+	\caption{Ejecucion del Unit Test Java. Assert con P-Invariantes}
+	\label{fig:test_rdp_ok}
+\end{figure}
 
 \begin{thebibliography}{100} % 100 is a random guess of the total number of
 %references
